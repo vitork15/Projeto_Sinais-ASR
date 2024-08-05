@@ -5,7 +5,7 @@ import scipy
 import pickle
 import os
 
-dirname = os.path.dirname(__file__)
+dirname = os.path.dirname(__file__) + '/'
 
 def pre_process(audio, sr, cutoff_freq):
     # y[n] = x[n]-0.97*x[n-1]
