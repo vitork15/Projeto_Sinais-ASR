@@ -3,6 +3,9 @@ from hmmlearn import hmm
 import numpy as np
 import scipy
 import pickle
+import os
+
+dirname = os.path.dirname(__file__)
 
 def pre_process(audio, sr, cutoff_freq):
     # y[n] = x[n]-0.97*x[n-1]
@@ -23,9 +26,9 @@ def training():
             for iteration in range(50):
                 print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
-                    filename = 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
+                    filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
-                    filename = 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
+                    filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3000)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr)
@@ -67,9 +70,9 @@ def testing():
             for iteration in range(50):
                 #print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
-                    filename = 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
+                    filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
-                    filename = 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
+                    filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3000)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr)
