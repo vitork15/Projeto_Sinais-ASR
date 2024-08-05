@@ -38,7 +38,7 @@ def training():
         print(f"Iniciando treinamento do modelo para o número {number}")
         model.fit(mfcc_vector, lengths)
 
-        for i in range(3):
+        for i in range(4):
             print(f"Reinicializando modelo: iteração {i+1}")
             modelgreedy = hmm.GaussianHMM(n_components=3, init_params='st', covariance_type="full", n_iter = 100)
             modelgreedy.fit(mfcc_vector, lengths)
@@ -85,6 +85,7 @@ def testing():
     print(f"Acurácia: {counter/total}")
 
 def main():
+    training()
     testing()
 
 
