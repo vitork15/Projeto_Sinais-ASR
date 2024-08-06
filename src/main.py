@@ -76,7 +76,7 @@ def testing():
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
-                audio = pre_process(audio, sr, 3400)
+                audio = pre_process(audio, sr, 3000)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
                 maxscore = -9999999.0
