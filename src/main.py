@@ -113,7 +113,6 @@ def get_number(filename):
 
 
 def main():
-    training()
     testing()
 
 if __name__ == "__main__":
