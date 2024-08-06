@@ -113,6 +113,7 @@ def get_number(filename):
 
 
 def main():
+    training()
     testing()
 
 
