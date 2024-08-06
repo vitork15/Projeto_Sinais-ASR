@@ -37,7 +37,7 @@ def training():
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
 
-        model = hmm.GaussianHMM(n_components=5, init_params='st', covariance_type="full", n_iter = 100)
+        model = hmm.GMMHMM(n_components=5, n_mix=3, init_params='st', covariance_type="full", n_iter = 100)
 
 
         print(f"Iniciando treinamento do modelo para o número {number}")
