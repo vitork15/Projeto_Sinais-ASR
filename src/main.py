@@ -24,8 +24,8 @@ def training():
     for number in range(10):
         mfcc_vector = np.array([]).reshape(0,num_mfcc)
         lengths = []
-        for speaker in range(1,10):
-            for iteration in range(10):
+        for speaker in range(1,4):
+            for iteration in range(50):
                 print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
