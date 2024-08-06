@@ -80,7 +80,7 @@ def testing():
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
                 maxscore = -9999999.0
-                for testnumber in range(3):
+                for testnumber in range(10):
                     score = model[testnumber].score(mfccs.transpose())
                     if(maxscore < score):
                         maxscore = score
