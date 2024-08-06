@@ -23,7 +23,7 @@ def training():
         mfcc_vector = np.array([]).reshape(0,20)
         lengths = []
         for speaker in range(1,48):
-            for iteration in range(5):
+            for iteration in range(10):
                 print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
@@ -31,11 +31,11 @@ def training():
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
-                mfccs = librosa.feature.mfcc(y=audio, sr=sr)
+                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=12)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
 
-        model = hmm.GaussianHMM(n_components=5, init_params='st', covariance_type="full", n_iter = 100)
+        model = hmm.GaussianHMM(n_components=4, init_params='st', covariance_type="full", n_iter = 100)
 
 
         print(f"Iniciando treinamento do modelo para o número {number}")
@@ -43,7 +43,7 @@ def training():
 
         for i in range(4):
             print(f"Reinicializando modelo: iteração {i+1}")
-            modelgreedy = hmm.GaussianHMM(n_components=5, init_params='st', covariance_type="full", n_iter = 100)
+            modelgreedy = hmm.GaussianHMM(n_components=4, init_params='st', covariance_type="full", n_iter = 100)
             modelgreedy.fit(mfcc_vector, lengths)
             if(modelgreedy.score(mfcc_vector, lengths) > model.score(mfcc_vector, lengths)): 
                 model = modelgreedy
@@ -67,7 +67,7 @@ def testing():
 
     for number in range(10):
         for speaker in range(48,60):
-            for iteration in range(5):
+            for iteration in range(50):
                 #print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
