@@ -30,12 +30,12 @@ def training():
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
-                audio = pre_process(audio, sr, 3000)
+                audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
 
-        model = hmm.GaussianHMM(n_components=3, init_params='st', covariance_type="full", n_iter = 100)
+        model = hmm.GaussianHMM(n_components=5, init_params='st', covariance_type="full", n_iter = 100)
 
 
         print(f"Iniciando treinamento do modelo para o número {number}")
@@ -43,7 +43,7 @@ def training():
 
         for i in range(4):
             print(f"Reinicializando modelo: iteração {i+1}")
-            modelgreedy = hmm.GaussianHMM(n_components=3, init_params='st', covariance_type="full", n_iter = 100)
+            modelgreedy = hmm.GaussianHMM(n_components=5, init_params='st', covariance_type="full", n_iter = 100)
             modelgreedy.fit(mfcc_vector, lengths)
             if(modelgreedy.score(mfcc_vector, lengths) > model.score(mfcc_vector, lengths)): 
                 model = modelgreedy
@@ -51,14 +51,14 @@ def training():
 
 
         modelname = 'model' + str(number)
-        with open(modelname + '.pkl', "wb") as file: pickle.dump(model, file)
+        with open(dirname + modelname + '.pkl', "wb") as file: pickle.dump(model, file)
 
 def testing():
 
     model = []
 
     for testnumber in range(10):
-        with open('model' + str(testnumber) + '.pkl', "rb") as file: 
+        with open(dirname + 'model' + str(testnumber) + '.pkl', "rb") as file: 
             model.append(pickle.load(file))
             file.close()
 
@@ -74,7 +74,7 @@ def testing():
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
-                audio = pre_process(audio, sr, 3000)
+                audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr)
                 result = -1
                 maxscore = -9999999.0
