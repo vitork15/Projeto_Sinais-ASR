@@ -77,7 +77,7 @@ def testing():
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
-                mfccs = librosa.feature.mfcc(y=audio, sr=sr)
+                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
                 maxscore = -9999999.0
                 for testnumber in range(3):
@@ -100,7 +100,7 @@ def get_number(filename):
 
     audio, sr = librosa.load(filename, sr = 8000)
     audio = pre_process(audio, sr, 3400)
-    mfccs = librosa.feature.mfcc(y=audio, sr=sr)
+    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
     result = -1
     maxscore = -9999999.0
     for testnumber in range(10):
@@ -113,7 +113,6 @@ def get_number(filename):
 
 
 def main():
-    training()
     testing()
 
 
