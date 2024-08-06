@@ -32,7 +32,7 @@ def training():
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
-                audio = pre_process(audio, sr, 3000)
+                audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
@@ -76,7 +76,7 @@ def testing():
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
-                audio = pre_process(audio, sr, 3000)
+                audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
                 maxscore = -9999999.0
@@ -99,7 +99,7 @@ def get_number(filename):
             file.close()
 
     audio, sr = librosa.load(filename, sr = 8000)
-    audio = pre_process(audio, sr, 3000)
+    audio = pre_process(audio, sr, 3400)
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
     result = -1
     maxscore = -9999999.0
@@ -113,7 +113,6 @@ def get_number(filename):
 
 
 def main():
-    training()
     testing()
 
 if __name__ == "__main__":
