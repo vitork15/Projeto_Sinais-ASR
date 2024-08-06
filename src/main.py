@@ -5,6 +5,8 @@ import scipy
 import pickle
 import os
 
+num_mfcc = 12
+
 dirname = os.path.dirname(__file__) + '/'
 
 def pre_process(audio, sr, cutoff_freq):
@@ -20,7 +22,7 @@ def pre_process(audio, sr, cutoff_freq):
 def training():
 
     for number in range(10):
-        mfcc_vector = np.array([]).reshape(0,20)
+        mfcc_vector = np.array([]).reshape(0,num_mfcc)
         lengths = []
         for speaker in range(1,48):
             for iteration in range(10):
@@ -31,7 +33,7 @@ def training():
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
                 audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
-                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=12)
+                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
 
