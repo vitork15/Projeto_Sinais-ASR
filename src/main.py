@@ -190,8 +190,7 @@ def confusion_matrix():
     plt.show()
 
 def main():
-    confusion_matrix()
-    normalized_confusion_matrix()
+    testing()
 
 if __name__ == "__main__":
     main()
