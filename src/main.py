@@ -23,7 +23,7 @@ def training():
         mfcc_vector = np.array([]).reshape(0,20)
         lengths = []
         for speaker in range(1,48):
-            for iteration in range(50):
+            for iteration in range(5):
                 print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
@@ -63,11 +63,11 @@ def testing():
             file.close()
 
     counter = 0
-    total = 10*12*50
+    total = 10*12*5
 
     for number in range(10):
         for speaker in range(48,60):
-            for iteration in range(50):
+            for iteration in range(5):
                 #print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
                 if speaker < 10:
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
@@ -86,6 +86,29 @@ def testing():
                 if result == number: counter = counter + 1
 
     print(f"Acurácia: {counter/total}")
+
+def get_number(filename):
+
+    model = []
+
+    for testnumber in range(10):
+        with open(dirname + 'model' + str(testnumber) + '.pkl', "rb") as file: 
+            model.append(pickle.load(file))
+            file.close()
+
+    audio, sr = librosa.load(filename, sr = 8000)
+    audio = pre_process(audio, sr, 3400)
+    mfccs = librosa.feature.mfcc(y=audio, sr=sr)
+    result = -1
+    maxscore = -9999999.0
+    for testnumber in range(10):
+        score = model[testnumber].score(mfccs.transpose())
+        if(maxscore < score):
+            maxscore = score
+            result = testnumber
+    
+    return result
+
 
 def main():
     training()
