@@ -7,7 +7,7 @@ from scipy.signal import butter, lfilter
 import soundfile as sf
 import keyboard
 
-sound_file = AudioSegment.from_wav('segment.wav')
+sound_file = AudioSegment.from_wav('/content/Projeto_Sinais-ASR/src/segment.wav')
 audio_chunks = split_on_silence(sound_file,
     min_silence_len=150,
     silence_thresh=-50
