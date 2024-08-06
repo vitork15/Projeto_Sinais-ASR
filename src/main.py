@@ -113,7 +113,8 @@ def get_number(filename):
 
 
 def main():
-    testing()
+    value = get_number('chunk5.wav')
+    print(value)
 
 if __name__ == "__main__":
     main()
