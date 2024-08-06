@@ -1,6 +1,8 @@
 import librosa
 from hmmlearn import hmm
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import metrics
 import scipy
 import pickle
 import os
@@ -89,7 +91,7 @@ def testing():
 
     print(f"Acurácia: {counter/total}")
 
-def get_number(filename):
+def predict(filename):
 
     model = []
 
@@ -111,10 +113,85 @@ def get_number(filename):
     
     return result
 
+def normalized_confusion_matrix():
+
+    model = []
+
+    for testnumber in range(10):
+        with open(dirname + 'model' + str(testnumber) + '.pkl', "rb") as file: 
+            model.append(pickle.load(file))
+            file.close()
+
+    y_true = []
+    y_pred = []
+
+    for number in range(10):
+        for speaker in range(48,60):
+            for iteration in range(50):
+                #print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
+                if speaker < 10:
+                    filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
+                else:
+                    filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
+                audio, sr = librosa.load(filename, sr = 8000)
+                audio = pre_process(audio, sr, 3400)
+                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
+                result = -1
+                maxscore = -9999999.0
+                for testnumber in range(10):
+                    score = model[testnumber].score(mfccs.transpose())
+                    if(maxscore < score):
+                        maxscore = score
+                        result = testnumber
+                y_true.append(number)
+                y_pred.append(result)
+
+    matrix = metrics.confusion_matrix(y_true, y_pred, labels = [i for i in range(10)], normalize='true')
+    disp = metrics.ConfusionMatrixDisplay(confusion_matrix=matrix)
+    disp.plot(values_format='.2f') 
+    plt.show()
+
+def confusion_matrix():
+
+    model = []
+
+    for testnumber in range(10):
+        with open(dirname + 'model' + str(testnumber) + '.pkl', "rb") as file: 
+            model.append(pickle.load(file))
+            file.close()
+
+    y_true = []
+    y_pred = []
+
+    for number in range(10):
+        for speaker in range(48,60):
+            for iteration in range(50):
+                #print(f"Gerando MFCCs do falante {speaker}, número {number}, iteração {iteration}")
+                if speaker < 10:
+                    filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
+                else:
+                    filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
+                audio, sr = librosa.load(filename, sr = 8000)
+                audio = pre_process(audio, sr, 3400)
+                mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
+                result = -1
+                maxscore = -9999999.0
+                for testnumber in range(10):
+                    score = model[testnumber].score(mfccs.transpose())
+                    if(maxscore < score):
+                        maxscore = score
+                        result = testnumber
+                y_true.append(number)
+                y_pred.append(result)
+
+    matrix = metrics.confusion_matrix(y_true, y_pred, labels = [i for i in range(10)])
+    disp = metrics.ConfusionMatrixDisplay(confusion_matrix=matrix)
+    disp.plot() 
+    plt.show()
 
 def main():
-    value = get_number('chunk5.wav')
-    print(value)
+    confusion_matrix()
+    normalized_confusion_matrix()
 
 if __name__ == "__main__":
     main()
