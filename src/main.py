@@ -37,7 +37,7 @@ def training():
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
                 lengths.append(len(mfccs.transpose()))
 
-        model = hmm.GaussianHMM(n_components=4, init_params='st', covariance_type="full", n_iter = 100)
+        model = hmm.GaussianHMM(n_components=3, init_params='st', covariance_type="full", n_iter = 100)
 
 
         print(f"Iniciando treinamento do modelo para o número {number}")
@@ -45,7 +45,7 @@ def training():
 
         for i in range(4):
             print(f"Reinicializando modelo: iteração {i+1}")
-            modelgreedy = hmm.GaussianHMM(n_components=4, init_params='st', covariance_type="full", n_iter = 100)
+            modelgreedy = hmm.GaussianHMM(n_components=3, init_params='st', covariance_type="full", n_iter = 100)
             modelgreedy.fit(mfcc_vector, lengths)
             if(modelgreedy.score(mfcc_vector, lengths) > model.score(mfcc_vector, lengths)): 
                 model = modelgreedy
