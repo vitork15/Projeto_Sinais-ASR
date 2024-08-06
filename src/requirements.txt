@@ -6,3 +6,4 @@ pyaudio
 pydub
 soundfile
 keyboard
+matplotlib
