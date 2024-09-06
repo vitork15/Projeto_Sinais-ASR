@@ -190,9 +190,8 @@ def confusion_matrix():
     plt.show()
 
 def main():
-    inputtest = input()
-    value = predict(inputtest)
-    print(value)
+    training()
+    testing()
 
 if __name__ == "__main__":
     main()
