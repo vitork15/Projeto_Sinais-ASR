@@ -33,7 +33,7 @@ def training():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 8000)
+                audio, sr = librosa.load(filename, sr = 48000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
@@ -45,7 +45,7 @@ def training():
         print(f"Iniciando treinamento do modelo para o número {number}")
         model.fit(mfcc_vector, lengths)
 
-        for i in range(4):
+        for i in range(9):
             print(f"Reinicializando modelo: iteração {i+1}")
             modelgreedy = hmm.GaussianHMM(n_components=5, n_iter = 100)
             modelgreedy.fit(mfcc_vector, lengths)
@@ -77,7 +77,7 @@ def testing():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 8000)
+                audio, sr = librosa.load(filename, sr = 48000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
@@ -100,7 +100,7 @@ def predict(filename):
             model.append(pickle.load(file))
             file.close()
 
-    audio, sr = librosa.load(filename, sr = 8000)
+    audio, sr = librosa.load(filename, sr = 48000)
     audio = pre_process(audio, sr, 3400)
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
     result = -1
@@ -133,7 +133,7 @@ def normalized_confusion_matrix():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 8000)
+                audio, sr = librosa.load(filename, sr = 48000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
@@ -171,7 +171,7 @@ def confusion_matrix():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 8000)
+                audio, sr = librosa.load(filename, sr = 48000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1

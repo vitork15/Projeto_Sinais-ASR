@@ -1,9 +1,0 @@
-hmmlearn
-librosa
-numpy==1.26.4
-scipy
-pyaudio
-pydub
-soundfile
-keyboard
-matplotlib
