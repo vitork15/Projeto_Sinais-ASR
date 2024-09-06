@@ -1,4 +1,3 @@
-import pyaudio
 import wave
 import io, librosa
 import numpy as np
@@ -7,6 +6,8 @@ from pydub.silence import split_on_silence
 from scipy.signal import butter, lfilter
 import soundfile as sf
 import keyboard
+import pyaudio
+
 
 
 FORMAT = pyaudio.paInt16  # Formato de áudio
@@ -46,7 +47,7 @@ with wave.open(WAVE_OUTPUT_FILENAME, 'wb') as wf:
 
 print(f"Gravacao salva como {WAVE_OUTPUT_FILENAME}")
 
-sound_file = AudioSegment.from_wav('segment.wav')
+sound_file = AudioSegment.from_wav('/content/Projeto_Sinais-ASR/src/segment.wav')
 audio_chunks = split_on_silence(sound_file,
     min_silence_len=150,
     silence_thresh=-50
