@@ -33,7 +33,7 @@ def training():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 48000)
+                audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 mfcc_vector = np.concatenate((mfcc_vector,mfccs.transpose()))
@@ -77,7 +77,7 @@ def testing():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 48000)
+                audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
@@ -100,7 +100,7 @@ def predict(filename):
             model.append(pickle.load(file))
             file.close()
 
-    audio, sr = librosa.load(filename, sr = 48000)
+    audio, sr = librosa.load(filename, sr = 8000)
     audio = pre_process(audio, sr, 3400)
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
     result = -1
@@ -133,7 +133,7 @@ def normalized_confusion_matrix():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 48000)
+                audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
@@ -171,7 +171,7 @@ def confusion_matrix():
                     filename = dirname + 'data/0' + str(speaker) + '/' + str(number) + '_0' + str(speaker) + '_' + str(iteration) + '.wav'
                 else:
                     filename = dirname + 'data/' + str(speaker) + '/' + str(number) + '_' + str(speaker) + '_' + str(iteration) + '.wav'
-                audio, sr = librosa.load(filename, sr = 48000)
+                audio, sr = librosa.load(filename, sr = 8000)
                 audio = pre_process(audio, sr, 3400)
                 mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=num_mfcc)
                 result = -1
@@ -190,8 +190,9 @@ def confusion_matrix():
     plt.show()
 
 def main():
-    training()
-    testing()
+    inputtest = input()
+    valor = predict(inputtest)
+    print(f"Número interpretado: {valor}")
 
 if __name__ == "__main__":
     main()
