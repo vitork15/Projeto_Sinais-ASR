@@ -5,6 +5,8 @@ Projeto da cadeira de Sinais e Sistemas para o desenvolvimento de um sistema de 
 
 O dataset utilizado foi o AudioMNIST, disponível em https://github.com/soerenab/AudioMNIST. Ele contém os aúdios de 60 falantes repetindo os números de 0 a 9 um total de 50 vezes para cada número, para um total de 30.000 aúdios. A frequência de amostragem dos aúdios é de 48kHz.
 
+Foi feita uma divisão de 80%/20% para o conjunto de treinamento (80%) e teste (20%).
+
 ## Pré-processamento
 
 Para o pre-processamento do sinal, foi utilizada a técnica conhecida como *pre-enfâse*, usando um filtro definido por y[n]=x[n]-0.97*x[n-1]. Após isso, foi aplicado um filtro Butterworth passa-baixa de quinta ordem com frequência de corte em 3400Hz.
@@ -24,3 +26,9 @@ O segmentador de aúdio utiliza intervalos de silêncio para segmentar um aúdio
 ## Especificações
 
 Nessa implementação, foram utilizadas principalmente as bibliotecas *librosa* e *hmmlearn* do *Python*, as *features* utilizadas foram os primeiros 12 MFCCs e cada HMM tinha 5 estados. Para evitar que o modelo ficasse preso em mínimos locais, o treinamento de cada HMM é reinicializado com condições iniciais randômicas um total de 5 vezes.
+
+Para o armazenamento e uso dos arquivos do modelo, utilizamos a biblioteca *pickle* do Python.
+
+## Resultados
+
+O modelo final (arquivos fornecidos no repositório) teve uma acurácia de cerca de 94% no conjunto de testes. 
