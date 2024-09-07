@@ -47,7 +47,7 @@ with wave.open(WAVE_OUTPUT_FILENAME, 'wb') as wf:
 
 print(f"Gravacao salva como {WAVE_OUTPUT_FILENAME}")
 
-sound_file = AudioSegment.from_wav('/content/Projeto_Sinais-ASR/src/segment.wav')
+sound_file = AudioSegment.from_wav('segment.wav')
 audio_chunks = split_on_silence(sound_file,
     min_silence_len=150,
     silence_thresh=-50
