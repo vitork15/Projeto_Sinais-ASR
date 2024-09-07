@@ -7,7 +7,9 @@ O dataset utilizado foi o AudioMNIST, disponível em https://github.com/soerenab
 
 ## Pré-processamento
 
-Para o pre-processamento do sinal, foi utilizada a técnica conhecida como *pre-enfâse*, usando um filtro definido por y[n]=x[n]-0.97*x[n-1], além de um filtro Butterworth passa-baixa de quinta ordem com frequência de corte em 3400Hz.
+Para o pre-processamento do sinal, foi utilizada a técnica conhecida como *pre-enfâse*, usando um filtro definido por y[n]=x[n]-0.97*x[n-1]. Após isso, foi aplicado um filtro Butterworth passa-baixa de quinta ordem com frequência de corte em 3400Hz.
+
+O principal objetivo dessa etapa é reduzir o ruído e destacar a informação útil do sinal.
 
 ## Modelo
 
