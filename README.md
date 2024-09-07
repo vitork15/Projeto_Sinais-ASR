@@ -15,6 +15,10 @@ O modelo é um classificador que utiliza um conjunto de Modelos Ocultos de Marko
 
 Para as features, utilizou-se os MFCCs (mel-frequency cepstral coefficients) do sinal de aúdio.
 
+## Segmentação
+
+O segmentador de aúdio utiliza intervalos de silêncio para segmentar um aúdio em seções contínuas que estão acima de uma certa faixa de corte. Além disso, a implementação fornecida do segmentador também é responsável por capturar o aúdio do usuário. 
+
 ## Especificações
 
 Nessa implementação, foram utilizadas principalmente as bibliotecas *librosa* e *hmmlearn* do *Python*, as *features* utilizadas foram os primeiros 12 MFCCs e cada HMM tinha 5 estados. Para evitar que o modelo ficasse preso em mínimos locais, o treinamento de cada HMM é reinicializado com condições iniciais randômicas um total de 5 vezes.
