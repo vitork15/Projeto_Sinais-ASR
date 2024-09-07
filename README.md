@@ -27,7 +27,7 @@ O segmentador de aúdio utiliza intervalos de silêncio para segmentar um aúdio
 
 Nessa implementação, foram utilizadas principalmente as bibliotecas *librosa* e *hmmlearn* do *Python*, as *features* utilizadas foram os primeiros 12 MFCCs e cada HMM tinha 5 estados. Para evitar que o modelo ficasse preso em mínimos locais, o treinamento de cada HMM é reinicializado com condições iniciais randômicas um total de 5 vezes.
 
-Para o armazenamento e uso dos arquivos do modelo, utilizamos a biblioteca *pickle* do Python.
+Para o armazenamento e uso dos arquivos do modelo, foi utilizada a biblioteca *pickle* do Python.
 
 ## Resultados
 
