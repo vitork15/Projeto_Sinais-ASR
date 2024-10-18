@@ -3,7 +3,7 @@ Projeto da cadeira de Sinais e Sistemas para o desenvolvimento de um sistema de 
 
 ## Dataset
 
-O dataset utilizado foi o AudioMNIST, disponível (aqui)[https://github.com/soerenab/AudioMNIST]. Ele contém os aúdios de 60 falantes repetindo os números de 0 a 9 um total de 50 vezes para cada número, para um total de 30.000 aúdios. A frequência de amostragem dos aúdios é de 48kHz.
+O dataset utilizado foi o AudioMNIST, disponível [aqui](https://github.com/soerenab/AudioMNIST). Ele contém os aúdios de 60 falantes repetindo os números de 0 a 9 um total de 50 vezes para cada número, para um total de 30.000 aúdios. A frequência de amostragem dos aúdios é de 48kHz.
 
 Foi feita uma divisão de 80%/20% para o conjunto de treinamento (80%) e teste (20%).
 
